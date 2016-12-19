@@ -1,4 +1,4 @@
-OCaml wrapper around Pandorabots API
+OCaml wrapper for the pandorabots API
 
 ## Overview
 
