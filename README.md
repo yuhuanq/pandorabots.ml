@@ -6,6 +6,7 @@ OCaml wrapper around Pandorabots API
 
 In the toplevel,
 ```
+# directory "_build";;
 # require "cohttp.lwt";;
 # require "xml-light";;
 # load "pandorabots.cma";;
