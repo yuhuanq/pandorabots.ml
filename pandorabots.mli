@@ -5,7 +5,8 @@
  * Distributed under terms of the MIT license.
  *)
 
-(* [init ()] initiates a new chatbot instance *)
+(* [init id ] initiates a new conversation with bot [id]. Default bot is the
+ * einstein bot*)
 val init : ?botid:string -> unit -> unit
 
 (* [ask query] is a response string from the chatbot *)
