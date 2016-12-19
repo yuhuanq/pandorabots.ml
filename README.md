@@ -6,10 +6,10 @@ OCaml wrapper for the pandorabots API
 
 In the toplevel,
 ```
-# directory "_build";;
-# require "cohttp.lwt";;
-# require "xml-light";;
-# load "pandorabots.cma";;
+# #directory "_build";;
+# #require "cohttp.lwt";;
+# #require "xml-light";;
+# #load "pandorabots.cma";;
 # open Pandorabots;;
 # init ();;
 # ask "Hello, I'm Alice.";;
