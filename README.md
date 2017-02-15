@@ -12,7 +12,7 @@ In the toplevel,
 # #load "pandorabots.cma";;
 # open Pandorabots;;
 # init ();;
-# ask "Hello, I'm Alice.";;
+# ask "Hello, I'm Alice." |> parse |> fst;;
 - : string =
 " Thanks for coming to my chat room Alice. How did you hear about me?"
 ```
