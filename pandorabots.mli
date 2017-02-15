@@ -9,6 +9,9 @@
  * einstein bot*)
 val init : ?botid:string -> unit -> unit
 
+(* [parse json] is a util function *)
+val parse : string -> string * string
+
 (* [ask query] is a response string from the chatbot *)
 val ask : string -> string
 

@@ -18,8 +18,7 @@
  *)
 
 open Lwt
-open Cohttp
-open Cohttp_lwt_unix
+open Xml
 
 let (>>|) = (>|=)
 let (>>) (dt : unit Lwt.t) f = dt >>= (fun _ -> f)
@@ -45,14 +44,13 @@ let send_query s (id : string option) =
     | None -> ["botid",[!botid];"input",[s]]
     | Some cid -> ["botid",[!botid];"input",[s];"custid",[cid]] in
   Cohttp_lwt_unix.Client.post_form params (Uri.of_string api_url) >>= fun (resp,body) ->
-  let code = resp |> Response.status |> Code.code_of_status in
+  let code = resp |> Cohttp_lwt_unix.Response.status |> Cohttp.Code.code_of_status in
   (* Printf.printf "Response code: %d\n" code; *)
   (* Printf.printf "Headers: %s\n" (resp |> Response.headers |> Header.to_string); *)
   body |> Cohttp_lwt_body.to_string >>= fun body ->
   (* Printf.printf "Length of body: %d\n" (String.length body); *)
   if code=200 then return body
   else fail (Unsuccessful body)
-
 
 let rec extract_pcdata tagt = function
   | [] -> ""
@@ -95,16 +93,16 @@ let ask' query =
   if !fst_query then
     (* it is the first query *)
     send_query query None >>= fun body ->
-    let resptxt,custid = parse body in
-    fst_query := false;
-    custid_ref := Some custid;
-    (* Lwt_io.print resptxt >> *)
-    return resptxt
+      return body
+    (* let resptxt,custid = parse body in *)
+    (* fst_query := false; *)
+    (* custid_ref := Some custid; *)
+    (* return resptxt *)
   else
     send_query query !custid_ref >>= fun body ->
-    let resptxt,custid = parse body in
-    (* Lwt_io.print resptxt >> *)
-    return resptxt
+      return body
+    (* let resptxt,custid = parse body in *)
+    (* return resptxt *)
 
 let ask query =
   Lwt_main.run (ask' query)
